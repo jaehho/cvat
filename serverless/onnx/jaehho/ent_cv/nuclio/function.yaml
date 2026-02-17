@@ -1,8 +1,8 @@
 metadata:
-  name: onnx-entcv-yolov11
+  name: onnx-jaehho-entcv
   namespace: cvat
   annotations:
-    name: YOLO v11
+    name: ent_cv
     type: detector
     spec: |
       [
@@ -15,11 +15,11 @@ metadata:
 
 spec:
   description: YOLO v11 via onnx
-  runtime: 'python:3.8'
+  runtime: 'python:3.10'
   handler: main:handler
   eventTimeout: 30s
   build:
-    image: cvat.onnx.entcv.yolov11
+    image: cvat.onnx.jaehho.entcv
     baseImage: ubuntu:22.04
 
     directives:
