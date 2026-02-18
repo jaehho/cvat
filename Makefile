@@ -1,15 +1,11 @@
+SHELL := /bin/bash
 .SILENT:
 .IGNORE:
+.DEFAULT_GOAL := help
 
-CVAT_HOST := cvat.jaehho.com
-COMPOSE_FILES := \
-	-f docker-compose.yml \
-	-f components/serverless/docker-compose.serverless.yml \
-	-f docker-compose.settings_overlay.local.yml
+REPO_ROOT := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
-export CVAT_HOST
-
-.PHONY: help
+## General
 help: ## Show this help message
 	echo "Available targets:"
 	echo "=================="
@@ -19,6 +15,14 @@ help: ## Show this help message
 		     /^[a-zA-Z_-]+:/ {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 ## CVAT lifecycle
+CVAT_HOST := cvat.jaehho.com
+COMPOSE_FILES := \
+	-f docker-compose.yml \
+	-f components/serverless/docker-compose.serverless.yml \
+	-f docker-compose.settings_overlay.local.yml
+
+export CVAT_HOST
+
 .PHONY: up down build
 up: ## Start CVAT services
 	docker compose $(COMPOSE_FILES) up -d
