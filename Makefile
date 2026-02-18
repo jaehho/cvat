@@ -31,7 +31,7 @@ down: ## Stop CVAT services
 	docker compose $(COMPOSE_FILES) down
 
 build: ## Build CVAT services
-	docker compose $(COMPOSE_FILES) -f docker-compose.dev.yml build
+	docker compose $(COMPOSE_FILES) -f docker-compose.dev.yml build --pull
 
 superuser: ## Create a CVAT superuser
 	docker exec -it cvat_server bash -ic 'python3 ~/manage.py createsuperuser'
