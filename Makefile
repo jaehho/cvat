@@ -35,3 +35,27 @@ build: ## Build CVAT services
 
 superuser: ## Create a CVAT superuser
 	docker exec -it cvat_server bash -ic 'python3 ~/manage.py createsuperuser'
+
+## Cloudflared tunnel (systemd)
+CLOUDFLARED_SERVICE ?= cloudflared
+
+.PHONY: cloudflared-status cloudflared-start cloudflared-stop cloudflared-restart
+cloudflared-status: ## Show cloudflared tunnel service status (systemd)
+	sudo systemctl status $(CLOUDFLARED_SERVICE) --no-pager
+
+cloudflared-start: ## Start cloudflared tunnel service (systemd)
+	sudo systemctl start $(CLOUDFLARED_SERVICE)
+
+cloudflared-stop: ## Stop cloudflared tunnel service (systemd)
+	sudo systemctl stop $(CLOUDFLARED_SERVICE)
+
+cloudflared-restart: ## Restart cloudflared tunnel service (systemd)
+	sudo systemctl restart $(CLOUDFLARED_SERVICE)
+
+cloudflared-info: ## Show cloudflared tunnel information
+	echo "Tunnel information for 'mililab':"
+	echo "-------------------------------"
+	cloudflared tunnel info mililab
+	echo "Tunnel configuration:"
+	echo "---------------------"
+	cat /etc/cloudflared/config.yml
