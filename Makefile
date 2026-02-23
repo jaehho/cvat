@@ -19,7 +19,7 @@ CVAT_HOST := cvat.jaehho.com
 COMPOSE_FILES := \
 	-f docker-compose.yml \
 	-f components/serverless/docker-compose.serverless.yml \
-	-f docker-compose.settings_overlay.local.yml
+	-f docker-compose.override.yml
 
 export CVAT_HOST
 
