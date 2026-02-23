@@ -2,6 +2,7 @@ services:
   cvat_server:
     environment:
       DJANGO_SETTINGS_MODULE: settings
+      CVAT_NUCLIO_INVOKE_METHOD: dashboard
     volumes:
       - ./local-settings.py:/home/django/settings.py:ro
       - cvat_share:/home/django/share:ro
@@ -12,6 +13,8 @@ services:
     volumes:
       - cvat_share:/home/django/share:ro
   cvat_worker_annotation:
+    environment:
+      CVAT_NUCLIO_INVOKE_METHOD: dashboard
     volumes:
       - cvat_share:/home/django/share:ro
   cvat_worker_chunks:
